@@ -80,7 +80,7 @@ export class AppComponent implements OnInit {
                 }
                 this.getWeatherForecast(weatherParams);
                 this.sunCalculation = suncalc.getTimes(new Date(), latitude, longitude);
-                console.log(position);
+                console.log(99999999999,position);
             });
         } else {
             console.log('No support for geolocation');
@@ -106,8 +106,6 @@ export class AppComponent implements OnInit {
                     latitude: coordinates.lat,
                     longitude: coordinates.lng,
                 };
-
-               
                 this.getWeatherForecast(weatherParams);
             },
             (error) => {
@@ -148,12 +146,12 @@ export class AppComponent implements OnInit {
         this.maps.getPlacesAutocomplete(params).subscribe(
             (data) => {
                 if (data) {
-                    console.log(data);
+                    console.log(22222222222,data);
                     data.predictions.forEach((prediction) => {
-                        console.log(prediction);
                         this.locations.push({
                             name: prediction.description,
                             type: 'search_query',
+                            
                         });
                     });
                 }

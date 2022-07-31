@@ -49,7 +49,7 @@
             </button>
         </mat-toolbar>
         <div *ngIf="forecast" fxLayout="column">
-            <app-todays-summary [currentWeather]="forecast.currently" [weatherLocation]="selectedLocation"></app-todays-summary>
+            <app-todays-summary [forecast]="forecast" [hourlyWeather]="forecast.hourly" [currentWeather]="forecast.currently" [dailyWeather]="forecast.daily" [weatherLocation]="selectedLocation"></app-todays-summary>
         </div>
     </div>
     <mat-card class="weather-info-card" *ngIf="forecast" fxLayout="column">
@@ -61,7 +61,7 @@
                 [weatherAlertExpiration]="alert.expires"
             ></app-weather-alert>
         </div>
-        <app-hourly-view [hourlyWeather]="forecast.hourly" [weatherLocation]="selectedLocation"></app-hourly-view>
+        <app-hourly-view [hourlyWeather]="forecast.hourly" [currentWeather]="forecast.currently" [forecast]="forecast"  [weatherLocation]="selectedLocation"></app-hourly-view>
         <app-weekly-glance [dailyWeather]="forecast.daily" [weatherLocation]="selectedLocation"></app-weekly-glance>
     </mat-card>
     <div></div>
@@ -69,6 +69,6 @@
         <app-info-message icon="sunny-outline" [message]="loadingMessage" isSvg="true" [rotate]="loading"></app-info-message>
     </div>
     <footer fxLayout="row" fxLayoutAlign="center center">
-        <p class="mat-caption">Powered by Dark Sky</p>
+        <p class="mat-caption">Powered by Tuan Anh</p>
     </footer>
 </main>

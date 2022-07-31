@@ -9,13 +9,10 @@ export class DatetimeService {
 
     public dayNames = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
 
-    getTimeOfDay(timestamp) {
+    getHoursOfDay(timestamp) {
         const date = new Date(timestamp * 1000);
         let hour = date.getHours();
-        const ampm = hour >= 12 ? 'pm' : 'am';
-        hour = hour % 12;
-        hour = hour ? hour : 12;
-        return hour + '' + ampm;
+        return hour ;
     }
 
     getWeekDate(timestamp) {

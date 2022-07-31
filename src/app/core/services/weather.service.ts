@@ -22,7 +22,7 @@ export class WeatherService {
     }
 
     getTemperatureFormat(temp) {
-        return `${Math.round(temp)}°F`;
+        return `${Math.round(temp)}°C`;
     }
 
     private handleError<T>(operation = 'operation', result?: T) {

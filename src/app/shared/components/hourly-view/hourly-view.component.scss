@@ -31,6 +31,10 @@
         &:not(:last-of-type) {
             margin-right: 8px;
         }
+        .time{
+            white-space: break-word;
+            word-break: break-all;
+        }
     }
 
     .hour:last-of-type {

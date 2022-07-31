@@ -1,26 +1,280 @@
-<div @listStagger class="current-forecast" *ngIf="currentWeather">
-    <div *ngIf="weatherLocation" class="weather-location" fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="8px">
-        <mat-icon>place</mat-icon>
-        <p class="location">{{weatherLocation}}</p>
-    </div>
-    <div fxLayout="row" fxLayoutAlign="center center">
-        <p class="datetime">{{currentDate | date: 'longDate'}}</p>
-    </div>
-    <div class="icon-temp-container">
-        <app-weather-icon size="xlarge" [icon]="currentWeather.icon" [summary]="currentWeather.summary"></app-weather-icon>
-        <p class="temperature">{{currentWeather.temperature}}</p>
-    </div>
-    <p class="summary">{{currentWeather.summary}}</p>
-    <p *ngIf="currentWeather.apparentTemperature">Feels like {{currentWeather.apparentTemperature}}°F</p>
-    <div *ngIf="currentWeather.sunCalculation" class="sun-position" fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="16px">
-        <div fxLayout="row" fxLayoutAlign="start center" matTooltip="Sunrise time">
-            <mat-icon svgIcon="sunrise"></mat-icon>
-            {{currentWeather.sunCalculation.sunrise | date: 'shortTime'}}
+<!-- BAN NGÀY -->
+<div @listStagger class="current-forecast day" id="day"
+    *ngIf="currentWeather && (currentWeather.time < sunset && currentWeather.time > sunrise)">
+    <div class="day" id="location-show">
+        <div class="title">Location:</div>
+        <div *ngIf="weatherLocation" class="weather-location">
+            <mat-icon style="float:left; margin-top:-4px;">place</mat-icon>
+            <h4 class="location">{{weatherLocation}}</h4>
         </div>
-        <!-- <div class="vertical-divider"></div> -->
-        <div  fxLayout="row" fxLayoutAlign="start center" matTooltip="Sunset time">
-            <mat-icon svgIcon="sunset"></mat-icon>
-            {{currentWeather.sunCalculation.sunset | date: 'shortTime'}}
+        <div *ngIf="!weatherLocation" class="weather-location">
+            <mat-icon style="float:left; margin-top:-4px;">place</mat-icon>
+            <h4 class="location">Hà Nội, Hòa Lạc, Việt Nam</h4>
         </div>
+        <div class="coordinates">
+            <p class="latlongitude">Latitude: {{latitude}}</p>
+            <p class="latlongitude">Longitude: {{longitude}}</p>
+        </div>
+        <div class="time">
+            <p class="datetime">{{dateToday}}</p>
+            <p class="datetime">{{locationHours}}:{{locationMinutes}}</p>
+        </div>
+    </div>
+    <div class="day" id="main-show">
+        <!-- TRỜI NHIỀU MÂY -->
+        <div class="weather-status" *ngIf="currentWeather.icon == 'cloudy'">
+            <div class="weatherWidgetRow-moveVertical">
+                <i class="fas fa-cloud fa-9x" id="cloud"></i>
+            </div>
+            <div class="weatherWidgetRow-moveHorrizal">
+                <i class="fas fa-cloud fa-9x" id="cloud"></i>
+            </div>
+        </div>
+        <!-- TRỜI NẮNG / MÂY -->
+        <div class="weather-status" *ngIf="currentWeather.icon == 'partly-cloudy'">
+            <div class="weatherWidgetRow-moveVertical">
+                <i class="fas fa-sun fa-9x" id="sunCloud"></i>
+            </div>
+            <div class="weatherWidgetRow-moveHorrizal">
+                <i class="fas fa-cloud fa-9x" id="cloudSun"></i>
+            </div>
+        </div>
+        <!-- TRỜI NẮNG -->
+        <div class="weather-status" *ngIf="currentWeather.icon == 'sunny'">
+            <div class="weatherWidgetRow-moveVertical cloudDiv">
+                <i class="fas fa-sun fa-9x" id="sun"></i>
+            </div>
+        </div>
+        <!-- MƯA BAN NGÀY -->
+        <div class="weather-status" *ngIf="currentWeather.icon == 'rainy'">
+            <div class="weatherWidgetRow-moveVertical">
+                <i class="fas fa-cloud fa-7x cloud"></i>
+            </div>
+            <div class="weatherWidgetRow-moveHorrizal">
+                <div class="rain">
+                    <span style="--i:11"></span>
+                    <span style="--i:12"></span>
+                    <span style="--i:15"></span>
+                    <span style="--i:18"></span>
+                    <span style="--i:19"></span>
+                    <span style="--i:10"></span>
+                    <span style="--i:22"></span>
+                    <span style="--i:11"></span>
+                    <span style="--i:15"></span>
+                    <span style="--i:17"></span>
+                    <span style="--i:11"></span>
+                    <span style="--i:21"></span>
+                    <span style="--i:14"></span>
+                    <span style="--i:13"></span>
+                    <span style="--i:16"></span>
+                </div>
+            </div>
+        </div>
+        <p class="temperature">{{celsius}}°C</p>
+        <p class="convertTemperature">{{celsius}}°C / {{currentWeather.temperature}}°F</p>
+        <p class="summary">{{currentWeather.summary}}</p>
+        <p *ngIf="currentWeather.apparentTemperature">Feels like: {{apparentCelsius}}°C /
+            {{currentWeather.apparentTemperature}}°F</p>
+        <div *ngIf="currentWeather.sunCalculation" class="sun-position" fxLayout="row" fxLayoutAlign="center center"
+            fxLayoutGap="16px" style="padding-bottom: 20px;">
+            <div fxLayout="row" fxLayoutAlign="start center" matTooltip="Sunrise time">
+                <mat-icon svgIcon="sunrise"></mat-icon>
+                {{currentWeather.sunCalculation.sunrise | date: 'shortTime'}}
+            </div>
+            <div fxLayout="row" fxLayoutAlign="start center" matTooltip="Sunset time">
+                <mat-icon svgIcon="sunset"></mat-icon>
+                {{currentWeather.sunCalculation.sunset | date: 'shortTime'}}
+            </div>
+        </div>
+    </div>
+    <div class="day" id="detail-more">
+        <div class="title">Weather details: </div>
+        <!-- Nhiệt độ -->
+        <div class="detail-row">
+            <div class="column1">
+                <p><i class="fas fa-temperature-high fa-2x" style="height: 26px"></i> : {{temperatureMax}}°C</p>
+            </div>
+            <div class="column2">
+                <p><i class="fas fa-temperature-low fa-2x" style="height: 26px"></i> : {{temperatureMin}}°C</p>
+            </div>
+        </div>
+        <!-- Độ ẩm -->
+        <div class="detail-row">
+            <div class="column1">
+                <p><img class="dewpoint" src="./assets/icons/dew-point-48.png"> : {{dewPoint}}</p>
+            </div>
+            <div class="column2">
+                <p><img class="dewpoint" src="./assets/icons/humidity.png"> : {{humidity*100}}%</p>
+            </div>
+        </div>
+        <!-- Mưa -->
+        <div class="detail-row">
+            <div class="column1">
+                <p><i class="fas fa-cloud-rain fa-2x" style="height: 26px"></i> : {{precipProbability2}}%</p>
+            </div>
+            <div class="column2">
+                <p><i class="fas fa-smog fa-2x" style="height: 26px"></i> : {{visibility}}</p>
+            </div>
+        </div>
+        <!-- Gió -->
+        <div class="detail-row">
+            <div class="column1">
+                <p><i class="fas fa-wind fa-2x" style="height: 26px"></i> : {{windBearing}}</p>
+            </div>
+            <div class="column2">
+                <p><i class="fas fa-smog fa-2x" style="height: 26px"></i> : {{windSpeed}}</p>
+            </div>
+        </div>
+        <div class="detail-row">
+            <div class="column1">
+                <p><i class="fas fa-cloud-rain fa-2x" style="height: 26px"></i> : {{windBearing}}</p>
+            </div>
+            <div class="column2">
+                <p><i class="fas fa-smog fa-2x" style="height: 26px"></i> : {{windSpeed}}</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- BUỔI TỐI -->
+<!-- <div @listStagger class="current-forecast night" id="night" *ngIf="true"> -->
+<div @listStagger class="current-forecast night" id="night"
+    *ngIf="currentWeather && !(currentWeather.time < sunset && currentWeather.time > sunrise)">
+    <div class="night" id="location-show">
+        <div class="title">Location:
+            <div *ngIf="weatherLocation" class="weather-location">
+                <mat-icon style="float:left; margin-top:-4px;">place</mat-icon>
+                <h4 class="location">{{weatherLocation}}</h4>
+            </div>
+            <div *ngIf="!weatherLocation" class="weather-location">
+                <mat-icon style="float:left; margin-top:-4px;">place</mat-icon>
+                <h4 class="location">Hà Nội, Hòa Lạc, Việt Nam</h4>
+            </div>
+        </div>
+        <div class="coordinates">
+            <p class="latlongitude">Latitude: {{latitude}}</p>
+            <p class="latlongitude">Longitude: {{longitude}}</p>
+        </div>
+        <div class="time">
+            <p class="datetime">{{dateToday}}</p>
+            <p class="datetime">{{locationHours}}:{{locationMinutes}}</p>
+        </div>
+    </div>
+    <div class="night">
+        <!-- TRỜI QUANG -->
+        <div class="weather-status" *ngIf="currentWeather.icon == 'clear-night'">
+            <div class="weatherWidgetRow-moveVertical">
+                <i class="fas fa-moon fa-7x moon"></i>
+            </div>
+        </div>
+        <!-- TRỜI NHIỀU MÂY -->
+        <div class="weather-status" *ngIf="currentWeather.icon == 'cloudy'">
+            <div class="weatherWidgetRow-moveVertical">
+                <i class="fas fa-cloud fa-9x" id="cloud"></i>
+            </div>
+            <div class="weatherWidgetRow-moveHorrizal">
+                <i class="fas fa-cloud fa-9x" id="cloud"></i>
+            </div>
+        </div>
+        <!-- TRỜI TRĂNG / MÂY -->
+        <div class="weather-status" *ngIf="currentWeather.icon == 'partly-cloudy'">
+            <div class="weatherWidgetRow-moveVertical">
+                <i class="fas fa-moon fa-7x moon"></i>
+            </div>
+            <div class="weatherWidgetRow-moveHorrizal">
+                <i class="fas fa-cloud fa-7x" id="cloud"></i>
+            </div>
+        </div>
+        <!-- MƯA BAN ĐÊM -->
+        <div class="weather-status" *ngIf="currentWeather.icon == 'rainy'">
+            <div class="weatherWidgetRow-moveVertical">
+                <i class="fas fa-cloud fa-7x cloud"></i>
+            </div>
+            <div class="weatherWidgetRow-moveHorrizal">
+                <div class="rain">
+                    <span style="--i:11"></span>
+                    <span style="--i:12"></span>
+                    <span style="--i:15"></span>
+                    <span style="--i:18"></span>
+                    <span style="--i:19"></span>
+                    <span style="--i:10"></span>
+                    <span style="--i:22"></span>
+                    <span style="--i:11"></span>
+                    <span style="--i:15"></span>
+                    <span style="--i:17"></span>
+                    <span style="--i:11"></span>
+                    <span style="--i:21"></span>
+                    <span style="--i:14"></span>
+                    <span style="--i:13"></span>
+                    <span style="--i:16"></span>
+                </div>
+            </div>
+        </div>
+        <p class="temperature">{{celsius}}°C</p>
+        <p class="convertTemperature">{{celsius}}°C / {{currentWeather.temperature}}°F</p>
+        <p class="summary">{{currentWeather.summary}}</p>
+        <p *ngIf="currentWeather.apparentTemperature">Feels like: {{apparentCelsius}}°C /
+            {{currentWeather.apparentTemperature}}°F</p>
+        <div *ngIf="currentWeather.sunCalculation" class="sun-position" fxLayout="row" fxLayoutAlign="center center"
+            fxLayoutGap="16px" style="padding-bottom: 20px;">
+            <div fxLayout="row" fxLayoutAlign="start center" matTooltip="Sunrise time">
+                <mat-icon svgIcon="sunrise"></mat-icon>
+                {{currentWeather.sunCalculation.sunrise | date: 'shortTime'}}
+            </div>
+            <!-- <div class="vertical-divider"></div> -->
+            <div fxLayout="row" fxLayoutAlign="start center" matTooltip="Sunset time">
+                <mat-icon svgIcon="sunset"></mat-icon>
+                {{currentWeather.sunCalculation.sunset | date: 'shortTime'}}
+            </div>
+        </div>
+    </div>
+    <div class="night" id="detail-more">
+        <div class="title">Weather details: </div>
+        <!-- Nhiệt độ -->
+        <div class="detail-row">
+            <div class="column1">
+                <p><i class="fas fa-temperature-low fa-2x" style="height: 26px"></i> : {{temperatureMax}}</p>
+            </div>
+            <div class="column2">
+                <p><i class="fas fa-temperature-high fa-2x" style="height: 26px"></i> : {{temperatureMin}}</p>
+            </div>
+        </div>
+        <!-- Độ ẩm -->
+        <div class="detail-row">
+            <div class="column1">
+                <p><img class="dewpoint" src="./assets/icons/dew-point-48.png"> : {{dewPoint}}</p>
+            </div>
+            <div class="column2">
+                <p><img class="dewpoint" src="./assets/icons/humidity.png"> : {{humidity}}</p>
+            </div>
+        </div>
+        <!-- Mưa -->
+        <div class="detail-row">
+            <div class="column1">
+                <p><i class="fas fa-cloud-rain fa-2x" style="height: 26px"></i> : {{precipProbability2}}</p>
+            </div>
+            <div class="column2">
+                <p><i class="fas fa-smog fa-2x" style="height: 26px"></i> : {{visibility}}</p>
+            </div>
+        </div>
+        <!-- Gió -->
+        <div class="detail-row">
+            <div class="column1">
+                <p><i class="fas fa-wind fa-2x" style="height: 26px"></i> : {{windBearing}}</p>
+            </div>
+            <div class="column2">
+                <p><i class="fas fa-smog fa-2x" style="height: 26px"></i> : {{windSpeed}}</p>
+            </div>
+        </div>
+        <div class="detail-row">
+            <div class="column1">
+                <p><i class="fas fa-cloud-rain fa-2x" style="height: 26px"></i> : {{windBearing}}</p>
+            </div>
+            <div class="column2">
+                <p><i class="fas fa-smog fa-2x" style="height: 26px"></i> : {{windSpeed}}</p>
+            </div>
+        </div>
+
+
     </div>
 </div>

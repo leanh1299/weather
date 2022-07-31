@@ -20,22 +20,48 @@ import { animate, animateChild, query, stagger, style, transition, trigger } fro
     ],
 })
 export class HourlyViewComponent implements OnInit, OnChanges {
-    constructor(public datetime: DatetimeService, public weather: WeatherService, public icons: IconService) {}
+    constructor(public datetime: DatetimeService, public weather: WeatherService, public icons: IconService) { }
 
     @Input() hourlyWeather: any;
     @Input() weatherLocation: string;
+    @Input() currentWeather: any;
+    @Input() forecast: any;
 
-    ngOnInit() {}
+    public offSet: any;
+    public realHour: any;
+    public temperatureC: any;
+
+
+    ngOnInit() { }
 
     ngOnChanges(changes: SimpleChanges) {
         if (changes.hourlyWeather && changes.hourlyWeather.currentValue) {
             changes.hourlyWeather.currentValue.data.forEach((hour) => {
                 hour.ogTemperature = Math.round(hour.temperature);
                 hour.ogDate = hour.time;
-                hour.time = this.datetime.getTimeOfDay(hour.time);
-                hour.temperature = this.weather.getTemperatureFormat(hour.temperature);
-                hour.icon = this.icons.getIconFromMapping(hour.icon);
+                if (changes.currentWeather && changes.currentWeather.currentValue) {
+                    const forecast = changes.forecast.currentValue;
+                    this.offSet = forecast.offset;
+                    console.log("logOffset", this.offSet);
+                    hour.time = this.getTimeOfDay(hour.time);
+                    hour.temperature = this.weather.getTemperatureFormat((hour.temperature- 32) / 1.8);
+                    hour.icon = this.icons.getIconFromMapping(hour.icon);
+                    // hour.
+                }
             });
         }
+    }
+    getTimeOfDay(timestamp) {
+        const date = new Date(timestamp * 1000);
+        let hour = date.getHours();
+        if (this.offSet && hour - (7 - this.offSet) > 0 || hour - (7 - this.offSet) == 0) {
+            this.realHour = hour - (7 - this.offSet);
+        } else {
+            this.realHour = hour + 17 + this.offSet;
+        }
+        const ampm = this.realHour >= 12 ? 'pm' : 'am';
+        this.realHour = this.realHour % 12;
+        this.realHour = this.realHour ? this.realHour : 12;
+        return this.realHour + ' ' + ampm;
     }
 }
