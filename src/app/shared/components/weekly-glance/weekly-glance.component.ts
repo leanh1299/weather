@@ -24,8 +24,8 @@ export class WeeklyGlanceComponent implements OnInit, OnChanges {
         if (changes.dailyWeather && changes.dailyWeather.currentValue) {
             changes.dailyWeather.currentValue.data.forEach((day) => {
                 day.weekdayName = this.datetime.getWeekDate(day.time);
-                day.temperatureHigh = this.weather.getTemperatureFormat(day.temperatureHigh);
-                day.temperatureLow = this.weather.getTemperatureFormat(day.temperatureLow);
+                day.temperatureHigh = this.weather.getTemperatureFormat((day.temperatureHigh - 32)/1.8);
+                day.temperatureLow = this.weather.getTemperatureFormat((day.temperatureLow - 32)/1.8);
                 day.icon = this.icons.getIconFromMapping(day.icon);
             });
         }

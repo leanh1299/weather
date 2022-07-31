@@ -20,13 +20,13 @@ import * as suncalc from 'suncalc';
     ],
 })
 export class AppComponent implements OnInit {
-    public title = 'weather';
-    public loadingMessage = 'Try searching for a location!';
+    public title= 'weather';
+    public loadingMessage= 'Try searching for a location!';
     public forecast: any;
-    public locations: any = [];
+    public locations: any= [];
     public selectedLocation: string;
     public sunCalculation: any;
-    subject: Subject<any> = new Subject();
+    subject: Subject<any>= new Subject();
     constructor(
         public weather: WeatherService,
         public maps: MapsService,
@@ -35,24 +35,24 @@ export class AppComponent implements OnInit {
         public dialog: MatDialog,
         private renderer: Renderer2
     ) {}
-    public darkMode: boolean = false;
+    public darkMode: boolean= false;
     public searchForm: FormGroup;
-    public loading = false;
+    public loading= false;
 
     ngOnInit() {
-        // const prefersDark = window.matchMedia('(prefers-color-scheme: dark)');
+        // const prefersDark= window.matchMedia('(prefers-color-scheme: dark)');
         // if(prefersDark) {
         this.toggleDarkMode();
         // }
         this.getRecentHistory();
-        this.searchForm = this.fb.group({
+        this.searchForm= this.fb.group({
             searchInput: null,
         });
 
         this.searchForm
             .get('searchInput')
             .valueChanges.pipe(debounceTime(300))
-            .subscribe((value) => {
+            .subscribe((value) =>   {
                 if (value) {
                     this.getPlacesAutocompleteByLocationKeyword(value);
                 } else {
@@ -63,23 +63,23 @@ export class AppComponent implements OnInit {
     }
 
     toggleDarkMode() {
-        this.darkMode = !this.darkMode;
+        this.darkMode = !this.darkMode ;
         this.darkMode ? this.renderer.addClass(document.body, 'dark') : this.renderer.removeClass(document.body, 'dark');
     }
 
     getLocation(): void {
         if (navigator.geolocation) {
-            navigator.geolocation.getCurrentPosition((position) => {
-                const location = position;
-                const longitude = position.coords.longitude;
-                const latitude = position.coords.latitude;
+            navigator.geolocation.getCurrentPosition((position)=>   {
+                const location= position;
+                const longitude= position.coords.longitude;
+                const latitude= position.coords.latitude;
 
-                const weatherParams = {
+                const weatherParams= {
                     latitude: latitude,
                     longitude: longitude
                 }
                 this.getWeatherForecast(weatherParams);
-                this.sunCalculation = suncalc.getTimes(new Date(), latitude, longitude);
+                this.sunCalculation= suncalc.getTimes(new Date(), latitude, longitude);
                 console.log(99999999999,position);
             });
         } else {
@@ -92,23 +92,23 @@ export class AppComponent implements OnInit {
             searchInput: location,
         });
         this.addLocationToRecentHistory(location);
-        this.selectedLocation = location.name;
-        this.loading = true;
-        this.loadingMessage = `Finding weather in ${this.selectedLocation}`;
+        this.selectedLocation= location.name;
+        this.loading= true;
+        this.loadingMessage= `Finding weather in ${this.selectedLocation}`;
 
-        const geocodeParams = {
+        const geocodeParams= {
             address: this.selectedLocation,
         };
         this.maps.getOpenCageGeocodeByAddress(geocodeParams).subscribe(
-            (address) => {
-                const coordinates = address.results[0].geometry;
-                const weatherParams = {
-                    latitude: coordinates.lat,
-                    longitude: coordinates.lng,
+            (address)=>   {
+                const coordinates= address.results[0].geometry;
+                const weatherParams= {
+                    longitude:coordinates.lng,
+                    latitude:coordinates.lat,
                 };
                 this.getWeatherForecast(weatherParams);
             },
-            (error) => {
+            (error)=>   {
                 console.error(error);
             }
         );
@@ -116,60 +116,38 @@ export class AppComponent implements OnInit {
 
     getWeatherForecast(weatherParams) {
         this.weather.getDarkyWeather(weatherParams).subscribe(
-            (data) => {
+            (data)=>   {
                 if (data) {
-                    this.forecast = [];
-                    this.loading = false;
-                    this.forecast = data;
-                    this.sunCalculation = suncalc.getTimes(
+                    this.forecast= [];
+                    this.loading= false;
+                    this.forecast= data;
+                    this.sunCalculation= suncalc.getTimes(
                         new Date(),
                         weatherParams.latitude,
                         weatherParams.longitude
                     );
                     if(this.sunCalculation) {
-                        this.forecast.currently.sunCalculation = this.sunCalculation;
+                        this.forecast.currently.sunCalculation= this.sunCalculation;
                     }
+                console.log(69696969,this.sunCalculation);
+
                 }
             },
-            (error) => {
+            (error)=>   {
                 console.error(error);
             }
         );
     }
 
-    getPlacesAutocompleteByLocationKeyword(location: string) {
-        this.locations = [];
-        const params = {
-            address: location,
-            types: '(cities)',
-        };
-        this.maps.getPlacesAutocomplete(params).subscribe(
-            (data) => {
-                if (data) {
-                    console.log(22222222222,data);
-                    data.predictions.forEach((prediction) => {
-                        this.locations.push({
-                            name: prediction.description,
-                            type: 'search_query',
-                            
-                        });
-                    });
-                }
-                // this.forecast = data;
-            },
-            (error) => {
-                console.error(error);
-            }
-        );
-    }
+    
 
     addLocationToRecentHistory(location) {
-        location.type = 'recent';
+        location.type= 'recent';
         if (this.storage.getStorageItemByKey('search_history')) {
-            let searchHistory = JSON.parse(this.storage.getStorageItemByKey('search_history'));
+            let searchHistory= JSON.parse(this.storage.getStorageItemByKey('search_history'));
             searchHistory.push(location);
-            searchHistory = searchHistory.reduce((acc, current) => {
-                const x = acc.find((item) => item.name === current.name);
+            searchHistory= searchHistory.reduce((acc, current)=>   {
+                const x= acc.find((item)=>   item.name === current.name);
                 if (!x) {
                     return acc.concat([current]);
                 } else {
@@ -178,10 +156,35 @@ export class AppComponent implements OnInit {
             }, []);
             this.storage.setStorageItem('search_history', JSON.stringify(searchHistory));
         } else {
-            const searchHistory = [];
+            const searchHistory= [];
             searchHistory.push(location);
             this.storage.setStorageItem('search_history', JSON.stringify(searchHistory));
         }
+    }
+
+    getPlacesAutocompleteByLocationKeyword(location: string) {
+        this.locations= [];
+        const params= {
+            address:location,
+            types:'(cities)',
+        };
+        this.maps.getPlacesAutocomplete(params).subscribe(
+            (data)=>   {
+                if (data) {
+                    console.log(22222222222,data);
+                    data.predictions.forEach((prediction)=>   {
+                        this.locations.push({
+                            name: prediction.description,
+                            type: 'search_query',
+                            
+                        });
+                    });
+                }
+            },
+            (error)=>   {
+                console.error(error);
+            }
+        );
     }
 
     searchFieldDisplay(locationName) {
@@ -194,17 +197,17 @@ export class AppComponent implements OnInit {
 
     getRecentHistory() {
         if (this.storage.getStorageItemByKey('search_history')) {
-            this.locations = JSON.parse(this.storage.getStorageItemByKey('search_history'));
+            this.locations= JSON.parse(this.storage.getStorageItemByKey('search_history'));
         }
     }
 
     clearSearchHistory() {
-        this.locations = [];
+        this.locations= [];
         this.storage.setStorageItem('search_history', JSON.stringify([]));
     }
 
     openSearchDialog() {
-        const dialogRef = this.dialog.open(SearchComponent, {
+        const dialogRef= this.dialog.open(SearchComponent, {
             maxWidth: '100vw',
             maxHeight: '100vh',
             height: '100%',
@@ -212,7 +215,7 @@ export class AppComponent implements OnInit {
             panelClass: 'search-dialog',
         });
 
-        dialogRef.afterClosed().subscribe((result) => {
+        dialogRef.afterClosed().subscribe((result)=>   {
             if (result) {
                 this.getWeather(result);
             }

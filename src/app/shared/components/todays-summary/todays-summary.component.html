@@ -92,10 +92,11 @@
         <!-- Nhiệt độ -->
         <div class="detail-row">
             <div class="column1">
-                <p><i class="fas fa-temperature-high fa-2x" style="height: 26px"></i> : {{temperatureMax}}°C</p>
+                <p><i class="fas fa-temperature-high fa-2x" style="height: 24px"> <span
+                            class="tooltiptext">Tooltiptext</span> </i> : {{temperatureMax}}°C</p>
             </div>
             <div class="column2">
-                <p><i class="fas fa-temperature-low fa-2x" style="height: 26px"></i> : {{temperatureMin}}°C</p>
+                <p><i class="fas fa-temperature-low fa-2x" style="height: 24px"></i> : {{temperatureMin}}°C</p>
             </div>
         </div>
         <!-- Độ ẩm -->
@@ -110,27 +111,27 @@
         <!-- Mưa -->
         <div class="detail-row">
             <div class="column1">
-                <p><i class="fas fa-cloud-rain fa-2x" style="height: 26px"></i> : {{precipProbability2}}%</p>
+                <p><i class="fas fa-cloud-rain fa-2x" style="height: 24px"></i> : {{precipProbability2}}%</p>
             </div>
             <div class="column2">
-                <p><i class="fas fa-smog fa-2x" style="height: 26px"></i> : {{visibility}}</p>
+                <p><i class="fas fa-smog fa-2x" style="height: 24px"></i> : {{visibility}}</p>
             </div>
         </div>
         <!-- Gió -->
         <div class="detail-row">
             <div class="column1">
-                <p><i class="fas fa-wind fa-2x" style="height: 26px"></i> : {{windBearing}}</p>
+                <p><i class="fas fa-wind fa-2x" style="height: 24px"></i> : {{windBearing}}</p>
             </div>
             <div class="column2">
-                <p><i class="fas fa-smog fa-2x" style="height: 26px"></i> : {{windSpeed}}</p>
+                <p><i class="fas fa-smog fa-2x" style="height: 24px"></i> : {{windSpeed}}</p>
             </div>
         </div>
         <div class="detail-row">
             <div class="column1">
-                <p><i class="fas fa-cloud-rain fa-2x" style="height: 26px"></i> : {{windBearing}}</p>
+                <p><i class="fas fa-cloud-rain fa-2x" style="height: 24px"></i> : {{windBearing}}</p>
             </div>
             <div class="column2">
-                <p><i class="fas fa-smog fa-2x" style="height: 26px"></i> : {{windSpeed}}</p>
+                <p><i class="fas fa-smog fa-2x" style="height: 24px"></i> : {{windSpeed}}</p>
             </div>
         </div>
     </div>
@@ -233,10 +234,11 @@
         <!-- Nhiệt độ -->
         <div class="detail-row">
             <div class="column1">
-                <p><i class="fas fa-temperature-low fa-2x" style="height: 26px"></i> : {{temperatureMax}}</p>
+                <p><i class="fas fa-temperature-high fa-2x" style="height: 24px"> <span
+                            class="tooltiptext">Tooltiptext</span> </i> : {{temperatureMax}}°C</p>
             </div>
             <div class="column2">
-                <p><i class="fas fa-temperature-high fa-2x" style="height: 26px"></i> : {{temperatureMin}}</p>
+                <p><i class="fas fa-temperature-low fa-2x" style="height: 24px"></i> : {{temperatureMin}}°C</p>
             </div>
         </div>
         <!-- Độ ẩm -->
@@ -245,36 +247,34 @@
                 <p><img class="dewpoint" src="./assets/icons/dew-point-48.png"> : {{dewPoint}}</p>
             </div>
             <div class="column2">
-                <p><img class="dewpoint" src="./assets/icons/humidity.png"> : {{humidity}}</p>
+                <p><img class="humidity" src="./assets/icons/humidity.png"> : {{humidity*100}}%</p>
             </div>
         </div>
         <!-- Mưa -->
         <div class="detail-row">
             <div class="column1">
-                <p><i class="fas fa-cloud-rain fa-2x" style="height: 26px"></i> : {{precipProbability2}}</p>
+                <p><i class="fas fa-cloud-rain fa-2x" style="height: 24px"></i> : {{precipProbability2}}%</p>
             </div>
             <div class="column2">
-                <p><i class="fas fa-smog fa-2x" style="height: 26px"></i> : {{visibility}}</p>
+                <p><img class="visibility" src="./assets/icons/hide.png"> : {{visibility}}</p>
             </div>
         </div>
         <!-- Gió -->
         <div class="detail-row">
             <div class="column1">
-                <p><i class="fas fa-wind fa-2x" style="height: 26px"></i> : {{windBearing}}</p>
+                <p><i class="fas fa-wind fa-2x" style="height: 24px"></i> : {{windBearing}}</p>
             </div>
             <div class="column2">
-                <p><i class="fas fa-smog fa-2x" style="height: 26px"></i> : {{windSpeed}}</p>
+                <p><i class="fas fa-smog fa-2x" style="height: 24px"></i> : {{windSpeed}}</p>
             </div>
         </div>
         <div class="detail-row">
             <div class="column1">
-                <p><i class="fas fa-cloud-rain fa-2x" style="height: 26px"></i> : {{windBearing}}</p>
+                <p><img class="uvIndex" src="./assets/icons/uvindex.png"> : {{uvIndex}}</p>
             </div>
             <div class="column2">
-                <p><i class="fas fa-smog fa-2x" style="height: 26px"></i> : {{windSpeed}}</p>
+                <p><img class="ozone" src="./assets/icons/ozone.png"> : {{ozone}}</p>
             </div>
         </div>
-
-
     </div>
 </div>

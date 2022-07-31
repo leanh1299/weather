@@ -92,7 +92,7 @@
                     z-index: -1;
                     padding: 90px 20px 20px 20px;
                     margin-left: 15%;
-                    width: 180px;
+                    width: 140px;
                     height: 40px;
                     // transform: rotate(0.3);
                     span {
@@ -165,7 +165,7 @@
                     z-index: 1;
                     padding: 80px 20px;
                     margin-left: 15%;
-                    width: 180px;
+                    width: 140px;
                     height: 40px;
                     span {
                         display: block;
@@ -200,6 +200,7 @@
         float: left;
         width: 100%;
         margin-bottom: 20px;
+        margin-top: 10px;
     }
     .coordinates {
         .latlongitude {
@@ -210,6 +211,8 @@
         display: inline-block !important;
         .datetime {
             margin: 10px;
+            font-style: oblique;
+            font-weight: 600;
         }
     }
 }
@@ -217,7 +220,7 @@
 #detail-more {
     position: absolute;
     .title {
-        padding-top: 50px;
+        padding-top: 60px;
         font-size: 18px;
         font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
         text-align: left;
@@ -226,21 +229,42 @@
         // margin: 10px 12px;
         display: block;
         text-align: left;
+        padding-left: 20px;
         .column1 {
             float: left;
             width: 50%;
             margin-top: 10px;
             p {
                 display: inline;
-                font-size: 20px;
+                font-size: 16px;
                 img {
-                    height: 28px;
-                    width: 28px;
+                    height: 26px;
+                    width: 26px;
                     margin: 0 6px;
+                    position: relative;
+                    display: inline-block;
                 }
-                i {
-                    // height: 35px;
-                    // width: 35px;
+                i{
+                    position: relative;
+                    display: inline-block;
+                    .tooltiptext {
+                        visibility: hidden;
+                        width: 120px;
+                        background-color: black;
+                        color: #fff;
+                        text-align: center;
+                        padding: 5px 0;
+                        border-radius: 6px;
+
+                        /* Position the tooltip text - see examples below! */
+                        position: absolute;
+                        z-index: 1;
+                    }
+
+                    /* Show the tooltip text when you mouse over the tooltip container */
+                    i:hover .tooltiptext {
+                        visibility: visible;
+                    }
                 }
             }
         }
@@ -250,16 +274,98 @@
             margin-top: 10px;
             p {
                 display: inline;
-                font-size: 20px;
+                font-size: 16px;
                 img {
-                    height: 28px;
-                    width: 28px;
+                    height: 26px;
+                    width: 26px;
                     margin: 0 6px;
+                    position: relative;
+                    display: inline-block;
+                }
+                i,
+                img {
+                    .tooltiptext {
+                        visibility: hidden;
+                        width: 120px;
+                        background-color: black;
+                        color: #fff;
+                        text-align: center;
+                        padding: 5px 0;
+                        border-radius: 6px;
+
+                        /* Position the tooltip text - see examples below! */
+                        position: absolute;
+                        z-index: 1;
+                    }
+
+                    /* Show the tooltip text when you mouse over the tooltip container */
+                    .i:hover .tooltiptext .img:hover .tooltiptext {
+                        visibility: visible;
+                    }
                 }
             }
         }
     }
 }
+
+
+
+// @property --p{
+//     syntax: '<number>';
+//     inherits: true;
+//     initial-value: 1;
+//   }
+  
+//   .pie {
+//     --p:20;      /* the percentage */
+//     --b:22px;    /* the thickness */
+//     --c:darkred; /* the color */
+//     --w:150px;   /* the size*/
+    
+//     width:var(--w);
+//     aspect-ratio:1/1;
+//     position:relative;
+//     display:inline-grid;
+//     margin:5px;
+//     place-content:center;
+//     font-size:25px;
+//     font-weight:bold;
+//     font-family:sans-serif;
+//   }
+
+// .pie:after {
+//     content:"";
+//     position:absolute;
+//     border-radius:50%;
+//   }
+//   .pie:before {
+//     inset:0;
+//     background:
+//       radial-gradient(farthest-side,var(--c) 98%,#0000) top/var(--b) var(--b) no-repeat,
+//       conic-gradient(var(--c) calc(var(--p)*1%),#0000 0);
+//     -webkit-mask:radial-gradient(farthest-side,#0000 calc(99% - var(--b)),#000 calc(100% - var(--b)));
+//             mask:radial-gradient(farthest-side,#0000 calc(99% - var(--b)),#000 calc(100% - var(--b)));
+//   }
+//   .pie:after {
+//     inset:calc(50% - var(--b)/2);
+//     background:var(--c);
+//     transform:rotate(calc(var(--p)*3.6deg - 90deg)) translate(calc(var(--w)/2 - 50%));
+//   }
+//   .animate {
+//     animation:p 1s .5s both;
+//   }
+//   .no-round:before {
+//     background-size:0 0,auto;
+//   }
+//   .no-round:after {
+//     content:none;
+//   }
+//   @keyframes p{
+//     from{--p:0;}
+//   }
+
+  
+  
 
 .vertical-divider {
     border-left: 1px solid white;

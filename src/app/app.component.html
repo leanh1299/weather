@@ -1,25 +1,25 @@
-<main fxLayout="column">
-    <div class="todays-summary-container">
-        <mat-toolbar>
-            <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="8px">
-                <app-weather-icon size="regular" icon="partly-cloudy" summary="partly-cloudy"></app-weather-icon>
-                <span>Weather</span>
-            </div>
-            <div fxFlex></div>
-            <div class="autocomplete-field">
-                <mat-icon class="search-icon">search</mat-icon>
-                <form class="example-form" [formGroup]="searchForm">
-                    <input type="text" placeholder="Search Locations" [matAutocomplete]="auto" formControlName="searchInput" />
+<main fxLayout="column"> 
+    <div class="todays-summary-container"> 
+        <mat-toolbar> 
+            <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="8px"> 
+                <app-weather-icon size="regular" icon="partly-cloudy" summary="partly-cloudy"> </app-weather-icon> 
+                <span> Weather</span> 
+            </div> 
+            <div fxFlex> </div> 
+            <div class="autocomplete-field"> 
+                <mat-icon class="search-icon"> search</mat-icon> 
+                <form class="example-form" [formGroup]="searchForm"> 
+                    <input type="text" placeholder="Search Locations" [matAutocomplete]="auto" formControlName="searchInput" /> 
                     <mat-autocomplete
                         #auto="matAutocomplete"
                         (optionSelected)="getWeather($event.option.value)"
                         [displayWith]="searchFieldDisplay"
-                    >
-                        <mat-option *ngFor="let location of locations" [value]="location">
-                            <mat-icon>{{ location.type === 'recent' ? 'history' : 'location_city' }}</mat-icon>
+                    > 
+                        <mat-option *ngFor="let location of locations" [value]="location"> 
+                            <mat-icon> {{ location.type === 'recent' ? 'history' : 'location_city' }}</mat-icon> 
                             {{ location.name }}
-                        </mat-option>
-                    </mat-autocomplete>
+                        </mat-option> 
+                    </mat-autocomplete> 
 
                     <button
                         class="clear-search-button"
@@ -29,46 +29,46 @@
                         mat-icon-button
                         aria-label="Clear"
                         (click)="clearSearchField()"
-                    >
-                        <mat-icon>close</mat-icon>
-                    </button>
-                </form>
-            </div>
-            <div fxFlex></div>
-            <button class="search-dialog-button" mat-icon-button (click)="openSearchDialog()">
-                <mat-icon>search</mat-icon>
-            </button>
-            <mat-menu #settingsMenu="matMenu">
-                <button mat-menu-item (click)="clearSearchHistory()">
-                    <mat-icon>backspace</mat-icon>
-                    <span>Clear Search History</span>
-                </button>
-            </mat-menu>
-            <button mat-icon-button [matMenuTriggerFor]="settingsMenu">
-                <mat-icon>settings</mat-icon>
-            </button>
-        </mat-toolbar>
-        <div *ngIf="forecast" fxLayout="column">
-            <app-todays-summary [forecast]="forecast" [hourlyWeather]="forecast.hourly" [currentWeather]="forecast.currently" [dailyWeather]="forecast.daily" [weatherLocation]="selectedLocation"></app-todays-summary>
-        </div>
-    </div>
-    <mat-card class="weather-info-card" *ngIf="forecast" fxLayout="column">
-        <div class="alerts-container" *ngIf="forecast.alerts">
+                    > 
+                        <mat-icon> close</mat-icon> 
+                    </button> 
+                </form> 
+            </div> 
+            <div fxFlex> </div> 
+            <button class="search-dialog-button" mat-icon-button (click)="openSearchDialog()"> 
+                <mat-icon> search</mat-icon> 
+            </button> 
+            <mat-menu #settingsMenu="matMenu"> 
+                <button mat-menu-item (click)="clearSearchHistory()"> 
+                    <mat-icon> backspace</mat-icon> 
+                    <span> Clear Search History</span> 
+                </button> 
+            </mat-menu> 
+            <button mat-icon-button [matMenuTriggerFor]="settingsMenu"> 
+                <mat-icon> settings</mat-icon> 
+            </button> 
+        </mat-toolbar> 
+        <div *ngIf="forecast" fxLayout="column"> 
+            <app-todays-summary [forecast]="forecast" [hourlyWeather]="forecast.hourly" [currentWeather]="forecast.currently" [dailyWeather]="forecast.daily" [weatherLocation]="selectedLocation"> </app-todays-summary> 
+        </div> 
+    </div> 
+    <mat-card class="weather-info-card" *ngIf="forecast" fxLayout="column"> 
+        <div class="alerts-container" *ngIf="forecast.alerts"> 
             <app-weather-alert
                 *ngFor="let alert of forecast.alerts"
                 [weatherAlertTitle]="alert.title"
                 [weatherAlertContent]="alert.description"
                 [weatherAlertExpiration]="alert.expires"
-            ></app-weather-alert>
-        </div>
-        <app-hourly-view [hourlyWeather]="forecast.hourly" [currentWeather]="forecast.currently" [forecast]="forecast"  [weatherLocation]="selectedLocation"></app-hourly-view>
-        <app-weekly-glance [dailyWeather]="forecast.daily" [weatherLocation]="selectedLocation"></app-weekly-glance>
-    </mat-card>
-    <div></div>
-    <div *ngIf="!forecast" fxFlex>
-        <app-info-message icon="sunny-outline" [message]="loadingMessage" isSvg="true" [rotate]="loading"></app-info-message>
-    </div>
-    <footer fxLayout="row" fxLayoutAlign="center center">
-        <p class="mat-caption">Powered by Tuan Anh</p>
-    </footer>
-</main>
+            > </app-weather-alert> 
+        </div> 
+        <app-hourly-view [hourlyWeather]="forecast.hourly" [currentWeather]="forecast.currently" [forecast]="forecast"  [weatherLocation]="selectedLocation"> </app-hourly-view> 
+        <app-weekly-glance [dailyWeather]="forecast.daily" [weatherLocation]="selectedLocation"> </app-weekly-glance> 
+    </mat-card> 
+    <div> </div> 
+    <div *ngIf="!forecast" fxFlex> 
+        <app-info-message icon="sunny-outline" [message]="loadingMessage" isSvg="true" [rotate]="loading"> </app-info-message> 
+    </div> 
+    <footer fxLayout="row" fxLayoutAlign="center center"> 
+        <p class="mat-caption"> Powered by Tuan Anh</p> 
+    </footer> 
+</main> 

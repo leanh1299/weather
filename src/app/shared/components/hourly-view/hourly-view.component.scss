@@ -1,43 +1,42 @@
 
 .hourly-weather-header {
-    margin-bottom: 16px;
+    margin-bottom : 16px;
 
     h3, h4.mat-caption {
-        margin: 0px;
+        margin : 0px;
     }
 }
 .hourly-container {
-    white-space: nowrap;
-    width: 100%;
-    overflow: auto;
-    padding-bottom: 16px;
-
+    white-space : nowrap;
+    width : 100%;
+    overflow : auto;
+    padding-bottom : 16px;
 
     .temperature {
-        margin: 0px;
+        margin : 0px;
     }
 
     .hour {
-        padding: 8px 21.5px;
-        background: #c8cfd1;
-        border-width: 1px 1px 1px 0px;
-        border-radius: 16px;
-        display: inline-block;
-        text-align: center;
-        &:hover {
-            transition: box-shadow 280ms cubic-bezier(0.4, 0, 0.2, 1);
-            box-shadow: 0 5px 5px -3px rgb(0 0 0 / 20%), 0 8px 10px 1px rgb(0 0 0 / 14%), 0 3px 14px 2px rgb(0 0 0 / 12%);
+        padding : 8px 21.5px;
+        background : #c8cfd1;
+        border-width : 1px 1px 1px 0px;
+        border-radius : 16px;
+        display : inline-block;
+        text-align : center;
+        & :hover {
+            transition : box-shadow 280ms cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow : 0 5px 5px -3px rgb(0 0 0 / 20%), 0 8px 10px 1px rgb(0 0 0 / 14%), 0 3px 14px 2px rgb(0 0 0 / 12%);
         }
-        &:not(:last-of-type) {
-            margin-right: 8px;
+        & :not( :last-of-type) {
+            margin-right : 8px;
         }
         .time{
-            white-space: break-word;
-            word-break: break-all;
+            white-space : break-word;
+            word-break : break-all;
         }
     }
 
-    .hour:last-of-type {
-        border-right: none;
+    .hour :last-of-type {
+        border-right : none;
     }
 }
